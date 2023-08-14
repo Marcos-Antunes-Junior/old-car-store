@@ -1,0 +1,58 @@
+
+.navbar-brand {
+font-style: italic;
+font-weight: bold;
+}
+
+body{
+    background-color: #F8F0FB;
+}
+
+#car-images{
+    display: none;
+}
+
+
+
+nav{
+    background-color: #fff;
+}
+
+#hero-text{
+    width: 100%;
+    margin-top: 10%;
+   
+}
+
+
+
+
+@media only screen and (min-width: 35rem) {
+
+}
+
+@media only screen and (min-width: 64rem) {
+    #car-images{
+        display: block;
+    }
+    
+    #carouselExampleSlidesOnly{
+        margin-top: 10%;
+        display: block;
+    }
+    
+    #hero-text{
+        margin-top: 20%;
+        
+       
+    }
+
+    #title{
+        font-weight: bolder;
+        
+    }
+
+    #title-p{
+        width: 100%;
+    }
+}
