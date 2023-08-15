@@ -24,6 +24,10 @@ nav{
    
 }
 
+#some-cars{
+    margin-top: 10%;
+}
+
 
 
 
@@ -43,16 +47,26 @@ nav{
     
     #hero-text{
         margin-top: 20%;
+        margin-left: 10%;
+        
+        
         
        
     }
 
     #title{
         font-weight: bolder;
+        margin: auto;
         
     }
 
     #title-p{
-        width: 100%;
+        width: 90%;
+        
     }
+
+    #some-cars{
+        margin-top: 1%;
+    }
+    
 }
