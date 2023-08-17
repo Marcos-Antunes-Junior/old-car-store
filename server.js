@@ -8,6 +8,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
+const inventoryRoute = require("./routes/inventoryRoute")
 
 
 /* ***********************
@@ -28,6 +29,9 @@ app.use(static)
 app.get("/", function(req, res) {
 res.render("index", {title: "Home"})    
 })
+
+//Inventory Routes
+app.use("/inv", inventoryRoute)
 
 
 
