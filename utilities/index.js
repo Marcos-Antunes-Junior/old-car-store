@@ -12,7 +12,7 @@ Util.buildInventoryGrid = async function(data) {
     data.forEach(vehicle => {
     grid += '<div class="col-lg-3 col-md-12 mb-4">'
     grid += '<div class="card">'
-    grid += '<a href="#" class="text-decoration-none text-dark">'
+    grid += '<a href="../../inv/detail/'+vehicle.inv_id+'"title="View ' + vehicle.inv_model+' details" class="text-decoration-none text-dark">'
     grid += '<img src="'+ vehicle.inv_image +'" alt="'+ vehicle.inv_model +'" class="card-img-top" />'
     grid += '<div class="card-body">'
     grid += '<h5 class="card-title">'+ vehicle.inv_model +'</h5>'
@@ -39,7 +39,7 @@ Util.buildInventoryGrid = async function(data) {
     grid += '<h6 class="text-success">Special offer</h6>'
     grid += '</div>'
     grid += '<div class="card-body border-top"">'
-    grid += '<a class="btn btn-dark btn-sm me-2 text-light text-decoration-none" title="Click to see more" href="#" role="button">Details</a>'
+    grid += '<a class="btn btn-dark btn-sm me-2 text-light text-decoration-none" title="Click to see more" href="../../inv/detail/'+vehicle.inv_id+'" role="button">Details</a>'
     grid += '<a class="btn btn-outline-dark btn-sm me-2 text-decoration-none" title="Click to add to cart" href="#" role="button">Add to cart</a>'
     grid += '</div>'
     grid += '</a>'
