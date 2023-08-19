@@ -5,7 +5,7 @@ font-weight: bold;
 }
 
 body{
-    background-color: #F8F0FB;
+    background-color: #eee;
 }
 
 #car-images{
@@ -28,6 +28,9 @@ nav{
     margin-top: 10%;
 }
 
+.checked {
+    color: orange;
+  }
 
 
 
@@ -68,5 +71,14 @@ nav{
     #some-cars{
         margin-top: 1%;
     }
+
+    .card {
+        transition: all 0.3s;
+    }
+    
+    .card:hover {
+        transform: scale(1.10);
+    }
+    
     
 }
