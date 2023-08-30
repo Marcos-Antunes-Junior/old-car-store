@@ -1,4 +1,6 @@
 const invModel = require("../models/inventoryModel")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const Util = {}
 
 /* **************************************
@@ -12,7 +14,7 @@ Util.buildInventoryGrid = async function(data) {
     data.forEach(vehicle => {
     grid += '<div class="col-lg-3 col-md-12 mb-4">'
     grid += '<div class="card">'
-    grid += '<a href="../../inv/detail/'+vehicle.inv_id+'"title="View ' + vehicle.inv_model+' details" class="text-decoration-none text-dark">'
+    grid += '<a href="../../inv/detail/'+vehicle.inv_id+'" title="View ' + vehicle.inv_model+' details" class="text-decoration-none text-dark">'
     grid += '<img src="'+ vehicle.inv_image +'" alt="'+ vehicle.inv_model +'" class="card-img-top" />'
     grid += '<div class="card-body">'
     grid += '<h5 class="card-title">'+ vehicle.inv_model +'</h5>'
@@ -38,7 +40,7 @@ Util.buildInventoryGrid = async function(data) {
     grid += '</div>'
     grid += '<h6 class="text-success">Special offer</h6>'
     grid += '</div>'
-    grid += '<div class="card-body border-top"">'
+    grid += '<div class="card-body border-top">'
     grid += '<a class="btn btn-dark btn-sm me-2 text-light text-decoration-none" title="Click to see more" href="../../inv/detail/'+vehicle.inv_id+'" role="button">Details</a>'
     grid += '<a class="btn btn-outline-dark btn-sm me-2 text-decoration-none" title="Click to add to cart" href="#" role="button">Add to cart</a>'
     grid += '</div>'
@@ -109,5 +111,28 @@ return detailView
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+        req.cookies.jwt,
+        process.env.ACCESS_TOKEN_SECRET,
+        function (err, accountData) {
+        if (err) {
+        req.flash("Please log in")
+        res.clearCookie("jwt")
+        return res.redirect("/account/login")
+        }
+        res.locals.accountData = accountData
+        res.locals.loggedin = 1
+        next()
+        }
+        )
+    } else {
+        next()
+    }
+}
 
 module.exports = Util
