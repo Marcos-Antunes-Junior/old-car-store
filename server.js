@@ -17,12 +17,7 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
 
-/* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
+
 
 
 /* ***********************
@@ -60,6 +55,14 @@ app.use(utilities.checkJWTToken)
 
 
 
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout") // not at views root
+
+
 /* ******************************************
  * Routes
  * ***************************************** */
@@ -73,22 +76,16 @@ res.render("index", {title: "Home"})
 //Inventory Routes
 app.use("/inv", inventoryRoute)
 
-//Sign in Route
+//Account Route
 app.use("/account", accountRoute)
+
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
     next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
 
-
-
-/* ******************************************
- * Local server information (values from .env (enviroment) file)
- * ***************************************** */
-
-const host = process.env.HOST
-const port = process.env.PORT
 
 
 /* ***********************
@@ -103,6 +100,16 @@ res.render("errors/error", {
     message,
 })
 })
+
+
+
+
+/* ******************************************
+ * Local server information (values from .env (enviroment) file)
+ * ***************************************** */
+
+const host = process.env.HOST
+const port = process.env.PORT
 
 
 /* ***********************

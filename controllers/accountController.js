@@ -10,7 +10,6 @@ require("dotenv").config()
  *  Build Login View
  * ************************** */
 async function buildLoginView (req, res, next) {
-
 res.render("./account/login", {
 title: "Login",
 errors: null,
@@ -100,4 +99,82 @@ async function logoutProcess(req, res, next) {
     return res.redirect("/")
 }
 
-module.exports = {buildLoginView, buildRegisterView, registerAccount, accountLogin, logoutProcess}
+
+/* ***************************
+ *  Build Edit Account View
+ * ************************** */
+async function editAccountView(req, res, next){
+let account_id = res.locals.accountData.account_id
+const itemData = accModel.getAccountByID(account_id)
+res.render("account/edit", {
+    title: "Edit Account",
+    errors: null,
+    account_firstname: itemData.account_firstname,
+    account_lastname: itemData.account_lastname,
+    account_email: itemData.account_email,
+    account_id: itemData.account_id,
+})
+}
+
+/* ****************************************
+ *  Process Edit Account
+ * ************************************ */
+async function processEditAccount(req, res) {
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    const edit = accModel.editAccount(account_firstname, account_lastname, account_email, account_id)
+    const accountData = accModel.getAccountByID(account_id)
+    if(edit){
+    req.flash("notice", "Changes saved. Please, log in again.")
+    res.clearCookie("jwt");
+    return res.redirect("/account/login")
+    } else {
+    req.flash("bad-notice", "Sorry, operation failed.")
+    res.status(501).render("account/edit", {
+    title: "Edit Account",
+    errors: null,
+  })
+    }
+}
+
+
+/* ****************************************
+ *  Change Password View
+ * ************************************ */
+async function changePassword(req, res, next){
+    res.render("./account/change", {
+        title: "Change Password",
+        errors: null,
+    })
+}
+
+
+
+/* ***************************
+ *  Process Change Password
+ * ************************** */
+async function processPassword(req, res, next) {
+    const { account_id, account_password } = req.body
+
+    // Hash the password before storing
+    let hashedPassword
+    try {
+        hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+        req.flash("bad-notice", "Sorry, the change failed.")
+        res.status(500).redirect("/account/change")
+    }
+
+    const changePass = await accModel.changePassword(hashedPassword, account_id)
+
+    if(changePass) {
+    req.flash("notice", "Changes saved. Please, log in again.")
+    res.clearCookie("jwt");
+    return res.redirect("/account/login")
+    } else {
+        req.flash("bad-notice", "Sorry, the update failed.")
+        res.status(501).redirect("/account/change")
+    }
+}
+
+
+module.exports = {buildLoginView, buildRegisterView, registerAccount, accountLogin, logoutProcess, editAccountView, processEditAccount, changePassword, processPassword}

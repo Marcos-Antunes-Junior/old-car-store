@@ -16,28 +16,20 @@
       <!-- Right elements -->
     <div class="d-flex align-items-center">
       <!-- Icon -->
-      <a class="text-reset me-3" href="#" style="text-decoration: none;">
+      <a class="text-reset me-3" href="/inv/cart/" style="text-decoration: none;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
           <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
         </svg>
         <span class="badge rounded-pill badge-notification bg-danger">1</span>
       </a>
 
-
-        <a class="text-reset me-3" href="#" style="text-decoration: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
-            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-          </svg>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
-        </a>
-
         <div class="dropdown">
           <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"  aria-expanded="false">
           <%= locals.accountData.account_firstname %> <%= locals.accountData.account_lastname %>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" title="Click to edit profile" href="#">Edit Profile</a></li>
-          <li><a class="dropdown-item" title="Click to change password" href="#">Change Password</a></li>
+          <li><a class="dropdown-item" title="Click to edit account" href="/account/edit">Edit Account</a></li>
+          <li><a class="dropdown-item" title="Click to change password" href="/account/change">Change Password</a></li>
           <li><a class="dropdown-item" title="Click to logout" href="/account/logout">Logout</a></li>
           </ul>
         </div>
