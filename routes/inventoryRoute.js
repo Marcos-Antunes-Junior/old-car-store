@@ -17,4 +17,7 @@ router.get("/cart/", utilities.handleErrors(invController.cartView))
 // Route to process cart
 router.post("/cart/", regValidate.cartRules(), regValidate.checkDataCart, utilities.handleErrors(invController.processCart))
 
+// Route to delete cart item
+router.post("/cart/delete/", regValidate.deleteCartRules(), regValidate.checkDeleteDataCart, utilities.handleErrors(invController.deleteCartItem))
+
 module.exports = router;

@@ -74,4 +74,39 @@ validate.checkDataCart = async (req, res, next) => {
     next()
 }
 
+
+
+
+/*  **********************************
+ *  Delete Cart Validation Rules
+ * ********************************* */
+validate.deleteCartRules = () => {
+    return [
+        body("cart_id")
+        .trim()
+        .isLength({ min: 1})
+        .withMessage("Error. Please, try again later"),
+    ]
+    }
+    
+    
+    /*  **********************************
+     *  check delete data and return errors or continue cart process
+     * ********************************* */
+    validate.checkDeleteDataCart = async (req, res, next) => {
+        const {cart_id} = req.body
+        let errors = []
+        errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            res.render("inv/cart", {
+                errors,
+                title: "Shopping Cart",
+                cart_id,
+               
+            })
+          return 
+        }
+        next()
+    }
+
 module.exports = validate

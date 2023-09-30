@@ -80,8 +80,19 @@ res.render("./inventory/cart", {
 title: "Cart",
 cartView,   
 })    
-
 }
 
+/* ***************************
+ * Process deleting cart item
+ * ************************** */
+invCont.deleteCartItem = async function (req, res){
+const {cart_id} = req.body
+const deleteFromCart = cartModel.deleteCartItemByID(cart_id)
+if(deleteFromCart){
+ res.status(200).redirect("/inv/cart")   
+} else {
+ res.status(500).redirect("/inv/cart")
+}
+}
 
 module.exports = invCont

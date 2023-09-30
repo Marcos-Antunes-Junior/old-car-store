@@ -24,4 +24,17 @@ async function getCartbyAccountID(account_id) {
     }
 }
 
-module.exports = { insertCartData, getCartbyAccountID }
+/* ***************************
+ * Delete item by id
+ * ************************** */
+async function deleteCartItemByID(cart_id){
+    try {
+        const sql = "DELETE FROM public.cart WHERE cart_id = $1"
+        const data = await pool.query(sql, [cart_id])
+        return data
+    } catch (error) {
+        console.error("deleteCartItemByID:" + error)
+    }
+}
+
+module.exports = { insertCartData, getCartbyAccountID, deleteCartItemByID }
