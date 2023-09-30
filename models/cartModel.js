@@ -25,7 +25,7 @@ async function getCartbyAccountID(account_id) {
 }
 
 /* ***************************
- * Delete item by id
+ * Delete cart item by id
  * ************************** */
 async function deleteCartItemByID(cart_id){
     try {
