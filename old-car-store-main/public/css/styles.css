@@ -1,0 +1,103 @@
+
+.navbar-brand {
+font-style: italic;
+font-weight: bold;
+}
+
+body{
+    background-color: #eee;
+}
+
+#car-images{
+    display: none;
+}
+
+
+
+nav{
+    background-color: #fff;
+}
+
+#hero-text{
+    width: 100%;
+    margin-top: 10%;
+   
+}
+
+#some-cars{
+    margin-top: 10%;
+}
+
+.checked {
+    color: orange;
+  }
+
+
+  .notice{
+    color: rgb(1, 119, 1);
+    font-weight: bold;
+    
+}
+
+.bad-notice{
+    color: red;
+    font-weight: bold; 
+    
+}
+
+
+
+
+
+@media only screen and (min-width: 35rem) {
+
+}
+
+@media only screen and (min-width: 64rem) {
+    #car-images{
+        display: block;
+    }
+    
+    #carouselExampleSlidesOnly{
+        margin-top: 10%;
+        display: block;
+    }
+    
+    #hero-text{
+        margin-top: 20%;
+        margin-left: 10%;
+        
+        
+        
+       
+    }
+
+    #title{
+        font-weight: bolder;
+        margin: auto;
+        
+    }
+
+    #title-p{
+        width: 90%;
+        
+    }
+
+    #some-cars{
+        margin-top: 1%;
+    }
+
+    .card {
+        transition: all 0.3s;
+    }
+    
+    .card:hover {
+        transform: scale(1.10);
+    }
+
+  
+
+   
+    
+    
+}
