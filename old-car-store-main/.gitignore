@@ -1,9 +1,0 @@
-# This items in this file will be ignored by git
-
-# Node modules is a storage folder for Node and is very large
-node_modules
-
-# .env file is for local use only. Its values can not be shared
-.env
-
-README.md

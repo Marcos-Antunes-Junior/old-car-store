@@ -1,4 +1,5 @@
 const invModel = require("../models/inventoryModel")
+const cartModel = require("../models/cartModel")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -191,6 +192,22 @@ Util.buildCartView = async function (data){
     cartView = '<h3>You have 0 items in your cart.</h3>'
     }
     return cartView
+}
+
+/* **************************************
+* Build cart number items
+* ************************************ */
+Util.cartNumber = async function (account_id) {
+const data = await cartModel.getCartbyAccountID(account_id)
+let numberOfItems = 0;
+if(data.length > 0 ) {
+data.forEach(vehicle => {
+numberOfItems++;
+})
+return numberOfItems;
+} else {
+return numberOfItems;
+}
 }
 
 

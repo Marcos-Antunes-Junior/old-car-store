@@ -205,6 +205,37 @@ validate.changePassRules = () => {
 }
 
 
+/*  **********************************
+ *  Delete Account Validation Rules
+ * ********************************* */
+validate.deleteAccountRules = () => {
+    return [
+    //account id is required and must be an integer
+    body("account_id")
+    .trim()
+    .isInt()
+    .withMessage("Error! Please, try again later."),
+    ]
+ }
+
+
+   /* ******************************
+ * Check data and return errors or continue to delete account
+ * ***************************** */
+   validate.checkDeleteAccount = async (req, res, next) => {
+    const { account_id} = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        res.render("./account/delete", {
+            errors,
+            title: "Delete Account",
+            account_id,
+        })
+      return 
+    }
+    next()
+}
 
 
 

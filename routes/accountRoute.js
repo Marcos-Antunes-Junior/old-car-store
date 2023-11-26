@@ -19,6 +19,9 @@ router.get("/edit/", utilities.handleErrors(accController.editAccountView))
 // Route to edit password
 router.get("/change/", utilities.handleErrors(accController.changePassword))
 
+// Route to delete account
+router.get("/delete/", utilities.handleErrors(accController.deleteAccountView))
+
 // Route to process 
 router.post("/signup/", regValidate.registrationRules(), regValidate.checkRegData, utilities.handleErrors(accController.registerAccount))
 
@@ -30,5 +33,8 @@ router.post("/update", regValidate.editRules(), regValidate.checkEditData, utili
 
 // Process password update
 router.post("/updatePass", regValidate.changePassRules(), regValidate.checkChangePass, utilities.handleErrors(accController.processPassword))
+
+// Process delete account
+router.post("/confirm", regValidate.deleteAccountRules(), regValidate.checkDeleteAccount, utilities.handleErrors(accController.processDeleteAccount))
 
 module.exports = router;

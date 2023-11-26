@@ -14,9 +14,11 @@ invCont.buildByInventory = async function (req, res, next) {
     const account = res.locals.accountData
     if(account) {
         const account_id = res.locals.accountData.account_id
+        const cartNum = await utilities.cartNumber(account_id)
         const grid = await utilities.buildInventoryGrid(data, account, account_id)
         res.render("./inventory/cars", {
             title: "Our cars",
+            cartNum,
             grid,
         })
     } else {
@@ -40,9 +42,11 @@ invCont.buildInventoryByID = async function (req, res, next) {
     const model = data[0].inv_model
     if(account){
     const account_id = res.locals.accountData.account_id
+    const cartNum = await utilities.cartNumber(account_id)
     const detailView = await utilities.buildDetailsView(data, account, account_id)  
     res.render("./inventory/detail", {
         title: invYear + " " + model,
+        cartNum,
         detailView,
     })   
     } else {
@@ -73,11 +77,13 @@ res.status(500).redirect("/inv/cars")
  * Cart View
  * ************************** */
 invCont.cartView = async function (req, res, next){
-const account = res.locals.accountData.account_id
-const data = await cartModel.getCartbyAccountID(account)
+const account_id = res.locals.accountData.account_id
+const data = await cartModel.getCartbyAccountID(account_id)
 const cartView = await utilities.buildCartView(data)
+const cartNum = await utilities.cartNumber(account_id)
 res.render("./inventory/cart", {
 title: "Cart",
+cartNum,
 cartView,   
 })    
 }

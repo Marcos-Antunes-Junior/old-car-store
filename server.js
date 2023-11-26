@@ -15,6 +15,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const baseController = require("./controllers/baseController")
 
 
 
@@ -69,9 +70,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(static)
 
 // Index route
-app.get("/", utilities.handleErrors(function(req, res) {
-res.render("index", {title: "Home"})    
-}))
+app.get("/", utilities.handleErrors(baseController.buildHome))
 
 //Inventory Routes
 app.use("/inv", inventoryRoute)

@@ -1,4 +1,5 @@
 const accModel = require("../models/accountModel")
+const cartModel = require("../models/cartModel")
 const utilities = require("../utilities/")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
@@ -106,9 +107,11 @@ async function logoutProcess(req, res, next) {
 async function editAccountView(req, res, next){
 let account_id = res.locals.accountData.account_id
 const itemData = accModel.getAccountByID(account_id)
+const cartNum = await utilities.cartNumber(account_id)
 res.render("account/edit", {
     title: "Edit Account",
     errors: null,
+    cartNum,
     account_firstname: itemData.account_firstname,
     account_lastname: itemData.account_lastname,
     account_email: itemData.account_email,
@@ -141,10 +144,13 @@ async function processEditAccount(req, res) {
  *  Change Password View
  * ************************************ */
 async function changePassword(req, res, next){
-    res.render("./account/change", {
-        title: "Change Password",
-        errors: null,
-    })
+let account_id = res.locals.accountData.account_id
+const cartNum = await utilities.cartNumber(account_id)
+res.render("./account/change", {
+    title: "Change Password",
+    errors: null,
+    cartNum,
+})
 }
 
 
@@ -177,4 +183,37 @@ async function processPassword(req, res, next) {
 }
 
 
-module.exports = {buildLoginView, buildRegisterView, registerAccount, accountLogin, logoutProcess, editAccountView, processEditAccount, changePassword, processPassword}
+/* ***************************
+ *  Build Delete Account View
+ * ************************** */
+async function deleteAccountView (req, res, next){
+const account_id = res.locals.accountData.account_id
+const itemData = accModel.getAccountByID(account_id)
+const cartNum = await utilities.cartNumber(account_id)
+res.render('./account/delete', {
+title: "Delete Account",
+errors: null,
+cartNum,
+account_id: itemData.account_id,    
+})
+}
+
+/* ***************************
+ *  Process Delete Account
+ * ************************** */
+async function processDeleteAccount(req, res, next){
+const {account_id} = req.body
+const deleteAccount = await accModel.deleteByID(account_id)
+const deletecart = await cartModel.deleteCartByAccountID(account_id)
+if(deleteAccount && deletecart){
+req.flash("notice", "Account deleted.")
+res.clearCookie("jwt");
+return res.redirect("/account/login")
+} else {
+req.flash("bad-notice", "Sorry, operation failed")
+res.status(501).redirect("/account/delete")
+}
+}
+
+
+module.exports = {buildLoginView, buildRegisterView, registerAccount, accountLogin, logoutProcess, editAccountView, processEditAccount, changePassword, processPassword, deleteAccountView, processDeleteAccount}
